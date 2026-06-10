@@ -92,14 +92,14 @@ function Index() {
   const softMask =
     "radial-gradient(ellipse 60% 75% at 50% 50%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0) 92%)";
 
-  const imgClass = `absolute inset-0 h-full w-full object-contain object-center md:object-cover md:object-center transition-opacity duration-[2200ms] ease-out`;
-
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-black text-white">
       <img
         src={heroAsset}
         alt="Mante"
-        className={`${imgClass} ${revealed ? "opacity-90" : "opacity-0"}`}
+        className={`absolute inset-0 h-full w-full object-cover object-center transition-opacity duration-[2200ms] ease-out ${
+          revealed ? "opacity-90" : "opacity-0"
+        }`}
       />
       <div
         className={`absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/80 transition-opacity duration-[2200ms] ${
@@ -122,7 +122,7 @@ function Index() {
         <img
           src={flashAsset}
           alt=""
-          className="absolute inset-0 h-full w-full object-contain object-center md:object-cover md:object-center"
+          className="absolute inset-0 h-full w-full object-cover object-center"
           style={{
             filter: "contrast(1.05) brightness(0.95)",
             opacity: 0.92,
@@ -140,7 +140,7 @@ function Index() {
         }`}
         style={{
           backgroundImage: `url(${flashAsset})`,
-          backgroundSize: "contain",
+          backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
           filter: "blur(28px) brightness(2.2) saturate(0)",
@@ -158,8 +158,8 @@ function Index() {
         style={{
           maskImage: `url(${flashAsset})`,
           WebkitMaskImage: `url(${flashAsset})`,
-          maskSize: "contain",
-          WebkitMaskSize: "contain",
+          maskSize: "cover",
+          WebkitMaskSize: "cover",
           maskPosition: "center",
           WebkitMaskPosition: "center",
           maskRepeat: "no-repeat",
