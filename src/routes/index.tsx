@@ -58,6 +58,32 @@ const schedule: { phase: Phase; at: number }[] = (() => {
   return out;
 })();
 
+function PlayButton({ isPlaying, onClick, className }: { isPlaying: boolean; onClick: () => void; className?: string }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={isPlaying ? "Pauziraj glazbu" : "Pusti glazbu"}
+      className={`flex items-center gap-3 rounded-full border border-white/25 bg-black/40 backdrop-blur-md transition-all duration-700 hover:bg-white/10 hover:text-white text-white/80 uppercase tracking-[0.4em] ${className}`}
+    >
+      <span className="relative flex h-3 w-3 items-center justify-center">
+        {isPlaying ? (
+          <span className="flex h-3 w-3 items-end justify-between">
+            <span className="w-[3px] bg-current animate-pulse" style={{ height: "100%" }} />
+            <span className="w-[3px] bg-current animate-pulse" style={{ height: "60%", animationDelay: "150ms" }} />
+            <span className="w-[3px] bg-current animate-pulse" style={{ height: "80%", animationDelay: "300ms" }} />
+          </span>
+        ) : (
+          <svg viewBox="0 0 12 12" className="h-3 w-3 fill-current">
+            <polygon points="2,1 11,6 2,11" />
+          </svg>
+        )}
+      </span>
+      <span>{isPlaying ? "Pauza" : "Pusti"}</span>
+    </button>
+  );
+}
+
 function Index() {
   const [phase, setPhase] = useState<Phase>("black");
   const [showCountdown, setShowCountdown] = useState(false);
@@ -123,29 +149,14 @@ function Index() {
         onPause={() => setIsPlaying(false)}
       />
 
-      <button
-        type="button"
+      {/* Play button — mobile only (fixed bottom-right) */}
+      <PlayButton
+        isPlaying={isPlaying}
         onClick={togglePlay}
-        aria-label={isPlaying ? "Pauziraj glazbu" : "Pusti glazbu"}
-        className={`group fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 flex items-center gap-3 rounded-full border border-white/25 bg-black/40 px-4 py-2.5 text-[10px] uppercase tracking-[0.4em] text-white/80 backdrop-blur-md transition-all duration-700 hover:bg-white/10 hover:text-white ${
+        className={`md:hidden fixed bottom-6 right-6 z-50 px-4 py-2.5 text-[10px] ${
           revealed ? "opacity-100" : "opacity-0 pointer-events-none"
         }`}
-      >
-        <span className="relative flex h-3 w-3 items-center justify-center">
-          {isPlaying ? (
-            <span className="flex h-3 w-3 items-end justify-between">
-              <span className="w-[3px] bg-current animate-pulse" style={{ height: "100%" }} />
-              <span className="w-[3px] bg-current animate-pulse" style={{ height: "60%", animationDelay: "150ms" }} />
-              <span className="w-[3px] bg-current animate-pulse" style={{ height: "80%", animationDelay: "300ms" }} />
-            </span>
-          ) : (
-            <svg viewBox="0 0 12 12" className="h-3 w-3 fill-current">
-              <polygon points="2,1 11,6 2,11" />
-            </svg>
-          )}
-        </span>
-        <span>{isPlaying ? "Pauza" : "Pusti"}</span>
-      </button>
+      />
 
       <img
         src={heroAsset}
@@ -244,13 +255,14 @@ function Index() {
           MANTE
         </h1>
 
+        {/* Countdown */}
         <div
           className={`pointer-events-none absolute inset-0 flex items-center justify-center transition-all duration-[2200ms] ease-out ${
             showCountdown ? "opacity-100 translate-y-0 delay-[1100ms]" : "opacity-0 translate-y-16"
           }`}
         >
           <div className="flex flex-col items-center gap-4">
-            <span className="text-[10px] uppercase tracking-[0.5em] text-white/50">
+            <span className="text-[10px] md:text-[11.5px] uppercase tracking-[0.5em] text-white/50">
               26 · 06 · MMXXVI
             </span>
             <div className="flex items-end gap-5 md:gap-8 text-white">
@@ -276,6 +288,15 @@ function Index() {
                   )}
                 </div>
               ))}
+            </div>
+
+            {/* Play button — desktop only, below timer */}
+            <div className="hidden md:flex mt-6 pointer-events-auto">
+              <PlayButton
+                isPlaying={isPlaying}
+                onClick={togglePlay}
+                className="px-[1.3rem] py-[0.85rem] text-[13px]"
+              />
             </div>
           </div>
         </div>
