@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 const TARGET_DATE = new Date("2026-06-26T00:00:00+02:00").getTime();
 
@@ -62,7 +62,27 @@ function Index() {
   const [phase, setPhase] = useState<Phase>("black");
   const [showCountdown, setShowCountdown] = useState(false);
   const [compact, setCompact] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const { days, hours, minutes, seconds } = useCountdown(TARGET_DATE);
+
+  const togglePlay = async () => {
+    const a = audioRef.current;
+    if (!a) return;
+    if (a.paused) {
+      try {
+        a.muted = false;
+        a.volume = 1;
+        await a.play();
+        setIsPlaying(true);
+      } catch {
+        setIsPlaying(false);
+      }
+    } else {
+      a.pause();
+      setIsPlaying(false);
+    }
+  };
 
   useEffect(() => {
     const timers = schedule.map(({ phase: p, at }) =>
@@ -94,6 +114,39 @@ function Index() {
 
   return (
     <main className="relative min-h-screen w-full overflow-hidden bg-black text-white">
+      <audio
+        ref={audioRef}
+        src="/music/wants-and-needs.mp3"
+        loop
+        preload="auto"
+        onPlay={() => setIsPlaying(true)}
+        onPause={() => setIsPlaying(false)}
+      />
+
+      <button
+        type="button"
+        onClick={togglePlay}
+        aria-label={isPlaying ? "Pauziraj glazbu" : "Pusti glazbu"}
+        className={`group fixed bottom-6 right-6 md:bottom-10 md:right-10 z-50 flex items-center gap-3 rounded-full border border-white/25 bg-black/40 px-4 py-2.5 text-[10px] uppercase tracking-[0.4em] text-white/80 backdrop-blur-md transition-all duration-700 hover:bg-white/10 hover:text-white ${
+          revealed ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      >
+        <span className="relative flex h-3 w-3 items-center justify-center">
+          {isPlaying ? (
+            <span className="flex h-3 w-3 items-end justify-between">
+              <span className="w-[3px] bg-current animate-pulse" style={{ height: "100%" }} />
+              <span className="w-[3px] bg-current animate-pulse" style={{ height: "60%", animationDelay: "150ms" }} />
+              <span className="w-[3px] bg-current animate-pulse" style={{ height: "80%", animationDelay: "300ms" }} />
+            </span>
+          ) : (
+            <svg viewBox="0 0 12 12" className="h-3 w-3 fill-current">
+              <polygon points="2,1 11,6 2,11" />
+            </svg>
+          )}
+        </span>
+        <span>{isPlaying ? "Pauza" : "Pusti"}</span>
+      </button>
+
       <img
         src={heroAsset}
         alt="Mante"
@@ -196,28 +249,28 @@ function Index() {
             showCountdown ? "opacity-100 translate-y-0 delay-[1100ms]" : "opacity-0 translate-y-16"
           }`}
         >
-          <div className="flex flex-col items-center gap-3 sm:gap-4 px-4">
-            <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.4em] sm:tracking-[0.5em] text-white/50">
+          <div className="flex flex-col items-center gap-4">
+            <span className="text-[10px] uppercase tracking-[0.5em] text-white/50">
               26 · 06 · MMXXVI
             </span>
-            <div className="flex items-end gap-2 sm:gap-5 md:gap-8 text-white">
+            <div className="flex items-end gap-5 md:gap-8 text-white">
               {[
                 { v: days, l: "dana" },
                 { v: hours, l: "sati" },
                 { v: minutes, l: "min" },
                 { v: seconds, l: "sek" },
               ].map((u, i) => (
-                <div key={u.l} className="flex items-end gap-2 sm:gap-5 md:gap-8">
+                <div key={u.l} className="flex items-end gap-5 md:gap-8">
                   <div className="flex flex-col items-center">
-                    <span className="font-light tabular-nums leading-none text-[14vw] sm:text-[10vw] md:text-[3.5vw] tracking-[-0.04em]">
+                    <span className="font-light tabular-nums leading-none text-[10vw] md:text-[3.5vw] tracking-[-0.04em]">
                       {showCountdown ? String(u.v).padStart(2, "0") : "00"}
                     </span>
-                    <span className="mt-2 text-[8px] sm:text-[9px] uppercase tracking-[0.3em] sm:tracking-[0.4em] text-white/50">
+                    <span className="mt-2 text-[9px] uppercase tracking-[0.4em] text-white/50">
                       {u.l}
                     </span>
                   </div>
                   {i < 3 && (
-                    <span className="pb-[1.6vw] md:pb-[0.9vw] text-[5vw] md:text-[2vw] font-light text-white/25">
+                    <span className="pb-[1.2vw] md:pb-[0.9vw] text-[6vw] md:text-[2vw] font-light text-white/25">
                       ·
                     </span>
                   )}
