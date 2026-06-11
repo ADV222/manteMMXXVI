@@ -116,7 +116,7 @@ function Index() {
     <main className="relative min-h-screen w-full overflow-hidden bg-black text-white">
       <audio
         ref={audioRef}
-        src="/music/wants-and-needs.mp3"
+        src="/wants-and-needs.mp3"
         loop
         preload="auto"
         onPlay={() => setIsPlaying(true)}
