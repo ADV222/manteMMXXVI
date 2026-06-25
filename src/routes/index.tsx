@@ -140,7 +140,7 @@ function Index() {
     "radial-gradient(ellipse 60% 75% at 50% 50%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0) 92%)";
 
   return (
-    <main className="relative h-screen w-full overflow-hidden bg-black text-white">
+    <main className="relative w-full overflow-hidden bg-black text-white" style={{ height: "100dvh" }}>
       <audio
         ref={audioRef}
         src="/wants-and-needs.mp3"
@@ -227,9 +227,10 @@ function Index() {
       />
 
       <div
-        className={`relative z-10 h-screen p-6 md:p-10 transition-opacity duration-[1800ms] delay-500 ${
+        className={`relative z-10 p-6 md:p-10 transition-opacity duration-[1800ms] delay-500 ${
           revealed ? "opacity-100" : "opacity-0"
         }`}
+        style={{ height: "100dvh" }}
       >
         <header className="flex items-center justify-between text-[10px] uppercase tracking-[0.4em] text-white/70">
           <span>MMXXVI</span>
@@ -247,7 +248,6 @@ function Index() {
           MANTE
         </h1>
 
-        {/* Countdown */}
         <div
           className={`pointer-events-none absolute inset-0 flex items-center justify-center transition-all duration-[2200ms] ease-out ${
             showCountdown ? "opacity-100 translate-y-0 delay-[1100ms]" : "opacity-0 translate-y-16"
@@ -255,7 +255,7 @@ function Index() {
         >
           <div className="flex flex-col items-center gap-4">
             <span className="text-[10px] md:text-[11.5px] uppercase tracking-[0.5em] text-white/50">
-              27 · 06 · MMXXVI
+              27 &middot; 06 &middot; MMXXVI
             </span>
             <div className="flex items-end gap-5 md:gap-8 text-white">
               {[
@@ -275,14 +275,13 @@ function Index() {
                   </div>
                   {i < 3 && (
                     <span className="pb-[1.2vw] md:pb-[0.9vw] text-[6vw] md:text-[2vw] font-light text-white/25">
-                      ·
+                      &middot;
                     </span>
                   )}
                 </div>
               ))}
             </div>
 
-            {/* Play button — below timer on all screens */}
             <div className="flex mt-6 pointer-events-auto">
               <PlayButton
                 isPlaying={isPlaying}
@@ -306,7 +305,7 @@ function Index() {
       </div>
 
       <style>{`
-        .imperia-logo { height: 81px; bottom: 0 !important; right: 0 !important; }
+        .imperia-logo { height: 81px; bottom: 0 !important; right: -10px !important; }
         @media (min-width: 768px) { .imperia-logo { height: 162px; bottom: -27px !important; right: -40px !important; } }
         @keyframes mante-bolt-flicker {
           0%   { opacity: 0; }
