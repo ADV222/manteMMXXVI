@@ -304,7 +304,7 @@ function Index() {
 
         <footer className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 flex items-center justify-between text-[10px] uppercase tracking-[0.4em] text-white/60">
           <span>— soon</span>
-          <span>001</span>
+          
         </footer>
 
         <img
