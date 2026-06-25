@@ -304,13 +304,12 @@ function Index() {
 
         <footer className="absolute bottom-6 md:bottom-10 left-6 md:left-10 right-6 md:right-10 flex items-center justify-between text-[10px] uppercase tracking-[0.4em] text-white/60">
           <span>— soon</span>
-          
         </footer>
 
         <img
           src={imperiaLogo}
           alt="Imperia"
-          style={{ position: "absolute", bottom: "-27px", right: "-40px", height: "162px", width: "auto" }}
+          style={{ position: "absolute", bottom: "-27px", right: "-40px", height: "162px", width: "auto", filter: "invert(1)" }}
         />
       </div>
 
