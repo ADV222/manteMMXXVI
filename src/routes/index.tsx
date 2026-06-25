@@ -150,15 +150,6 @@ function Index() {
         onPause={() => setIsPlaying(false)}
       />
 
-      {/* Play button — mobile only (fixed bottom-right) */}
-      <PlayButton
-        isPlaying={isPlaying}
-        onClick={togglePlay}
-        className={`md:hidden fixed bottom-6 right-6 z-50 px-4 py-2.5 text-[10px] ${
-          revealed ? "opacity-100" : "opacity-0 pointer-events-none"
-        }`}
-      />
-
       <img
         src={heroAsset}
         alt="Mante"
@@ -291,8 +282,8 @@ function Index() {
               ))}
             </div>
 
-            {/* Play button — desktop only, below timer */}
-            <div className="hidden md:flex mt-6 pointer-events-auto">
+            {/* Play button — below timer on all screens */}
+            <div className="flex mt-6 pointer-events-auto">
               <PlayButton
                 isPlaying={isPlaying}
                 onClick={togglePlay}
@@ -309,11 +300,14 @@ function Index() {
         <img
           src={imperiaLogo}
           alt="Imperia"
-          style={{ position: "absolute", bottom: "-27px", right: "-40px", height: "162px", width: "auto", filter: "brightness(0) invert(1)" }}
+          className="imperia-logo"
+          style={{ position: "absolute", bottom: "-27px", right: "-40px", width: "auto", filter: "brightness(0) invert(1)" }}
         />
       </div>
 
       <style>{`
+        .imperia-logo { height: 81px; }
+        @media (min-width: 768px) { .imperia-logo { height: 162px; } }
         @keyframes mante-bolt-flicker {
           0%   { opacity: 0; }
           15%  { opacity: 1; }
