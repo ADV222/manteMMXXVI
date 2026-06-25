@@ -140,7 +140,7 @@ function Index() {
     "radial-gradient(ellipse 60% 75% at 50% 50%, rgba(0,0,0,1) 35%, rgba(0,0,0,0.85) 55%, rgba(0,0,0,0) 92%)";
 
   return (
-    <main className="relative min-h-screen w-full overflow-hidden bg-black text-white">
+    <main className="relative h-screen w-full overflow-hidden bg-black text-white">
       <audio
         ref={audioRef}
         src="/wants-and-needs.mp3"
@@ -227,7 +227,7 @@ function Index() {
       />
 
       <div
-        className={`relative z-10 min-h-screen p-6 md:p-10 transition-opacity duration-[1800ms] delay-500 ${
+        className={`relative z-10 h-screen p-6 md:p-10 transition-opacity duration-[1800ms] delay-500 ${
           revealed ? "opacity-100" : "opacity-0"
         }`}
       >
@@ -306,8 +306,8 @@ function Index() {
       </div>
 
       <style>{`
-        .imperia-logo { height: 81px; }
-        @media (min-width: 768px) { .imperia-logo { height: 162px; } }
+        .imperia-logo { height: 81px; bottom: 0 !important; right: 0 !important; }
+        @media (min-width: 768px) { .imperia-logo { height: 162px; bottom: -27px !important; right: -40px !important; } }
         @keyframes mante-bolt-flicker {
           0%   { opacity: 0; }
           15%  { opacity: 1; }
