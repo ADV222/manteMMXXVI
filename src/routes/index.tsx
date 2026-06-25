@@ -309,7 +309,7 @@ function Index() {
         <img
           src={imperiaLogo}
           alt="Imperia"
-          style={{ position: "absolute", bottom: "-27px", right: "-40px", height: "162px", width: "auto", filter: "invert(1)" }}
+          style={{ position: "absolute", bottom: "-27px", right: "-40px", height: "162px", width: "auto", filter: "brightness(0) invert(1)" }}
         />
       </div>
 
