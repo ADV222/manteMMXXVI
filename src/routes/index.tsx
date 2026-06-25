@@ -305,7 +305,7 @@ function Index() {
       </div>
 
       <style>{`
-        .imperia-logo { height: 81px; bottom: 0 !important; right: -10px !important; }
+        .imperia-logo { height: 81px; bottom: 0 !important; right: -16px !important; }
         @media (min-width: 768px) { .imperia-logo { height: 162px; bottom: -27px !important; right: -40px !important; } }
         @keyframes mante-bolt-flicker {
           0%   { opacity: 0; }
