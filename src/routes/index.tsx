@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useMemo, useRef, useState } from "react";
 
-const TARGET_DATE = new Date("2026-06-26T00:00:00+02:00").getTime();
+const TARGET_DATE = new Date("2026-06-27T00:00:00+02:00").getTime();
 
 function useCountdown(target: number) {
   const [now, setNow] = useState(() => Date.now());
@@ -20,6 +20,7 @@ function useCountdown(target: number) {
 }
 import heroAsset from "@/assets/mante-hero.png";
 import flashAsset from "@/assets/mante-flash.png";
+import imperiaLogo from "@/assets/imperia-logo.png";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -263,7 +264,7 @@ function Index() {
         >
           <div className="flex flex-col items-center gap-4">
             <span className="text-[10px] md:text-[11.5px] uppercase tracking-[0.5em] text-white/50">
-              26 · 06 · MMXXVI
+              27 · 06 · MMXXVI
             </span>
             <div className="flex items-end gap-5 md:gap-8 text-white">
               {[
@@ -305,6 +306,12 @@ function Index() {
           <span>— soon</span>
           <span>001</span>
         </footer>
+
+        <img
+          src={imperiaLogo}
+          alt="Imperia"
+          style={{ position: "absolute", bottom: "-27px", right: "-40px", height: "162px", width: "auto" }}
+        />
       </div>
 
       <style>{`
